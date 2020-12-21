@@ -24,7 +24,7 @@
     <properties>
         <maven-war-plugin.version>2.6</maven-war-plugin.version>
         <java.version>1.8</java.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <commons-dbcp.version>2.1.1</commons-dbcp.version>
         <hibernate.version>5.2.3.Final</hibernate.version>
         <h2database.version>1.4.197</h2database.version>
