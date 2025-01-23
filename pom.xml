@@ -38,7 +38,7 @@
         <cas.client.version>3.6.4</cas.client.version>
         <java.cas.client.version>4.0.4</java.cas.client.version>
 
-        <bootstrap-version>4.4.1</bootstrap-version>
+        <bootstrap-version>5.0.0</bootstrap-version>
         <jquery-version>3.4.1</jquery-version>
         <angularjs-version>1.5.8</angularjs-version>
         <angular-mocks-version>1.5.8</angular-mocks-version>
