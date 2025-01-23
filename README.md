@@ -1,9 +1,7 @@
 A web application to demonstrate how to use the UH CAS service.
 
-[![Build and Test](https://github.com/fduckart/uh-casdemo/actions/workflows/build-test.yml/badge.svg)](https://github.com/fduckart/uh-casdemo/actions/workflows/build-test.yml)
-[![Coverage](https://github.com/fduckart/uh-casdemo/blob/badges/jacoco.svg)](https://github.com/fduckart/uh-casdemo/actions/workflows/coverage.yml)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/f5fdc71206a64aa4a7dc9ffe9c988cd1?branch=master)](https://www.codacy.com/gh/codacy/codacy-coverage-reporter/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=codacy/codacy-coverage-reporter&amp;utm_campaign=Badge_Grade)
-
+[![Build and Test](https://github.com/UniversityOfHawaii/uh-casdemo/actions/workflows/build-test.yml/badge.svg)](https://github.com/UniversityOfHawaii/uh-casdemo/actions/workflows/build-test.yml)
+[![Coverage](https://github.com/UniversityOfHawaii/uh-casdemo/blob/badges/jacoco.svg)](https://github.com/UniversityOfHawaii/uh-casdemo/actions/workflows/coverage.yml)
 
 ##### Java
 
@@ -14,17 +12,17 @@ If necessary, be sure to set your JAVA_HOME environment variable.
 
 Install the necessary project dependencies from the command line:
 
-|    <!-- -->  | <!-- -->                          |
-|--------------|-----------------------------------|
-| maven        | `$ ./mvnw install               ` |
-| gradle       | `$ ./gradlew publishToMavenLocal` |
+| <!-- --> | <!-- -->                          |
+|----------|-----------------------------------|
+| maven    | `$ ./mvnw install               ` |
+| gradle   | `$ ./gradlew publishToMavenLocal` |
 
 To start the application:
 
-|    <!-- -->  | <!-- -->                         |
-|--------------|----------------------------------|
-| maven        | `$ ./mvnw clean spring-boot:run` |
-| gradle       | `$ ./gradlew bootRun           ` |
+| <!-- --> | <!-- -->                         |
+|----------|----------------------------------|
+| maven    | `$ ./mvnw clean spring-boot:run` |
+| gradle   | `$ ./gradlew bootRun           ` |
 
 After the application starts, navigate to here in a web browser:
 
@@ -37,33 +35,33 @@ that will rely on only the local development computer. A development build of th
 
 To run the unit tests:
 
-|    <!-- -->  | <!-- -->              |
-|--------------|-----------------------|
-| maven        | `$ ./mvnw clean test` |
-| gradle       | `$ ./gradlew test   ` |
+| <!-- --> | <!-- -->              |
+|----------|-----------------------|
+| maven    | `$ ./mvnw clean test` |
+| gradle   | `$ ./gradlew test   ` |
 
 To run a test single test class:
 
-|    <!-- -->  | <!-- -->                                         |
-|--------------|--------------------------------------------------|
-| maven        | `$ ./mvnw clean test -Dtest=StringsTest        ` |
-| gradle       | `$ ./gradlew test --tests StringsTest.trunctate` |
+| <!-- --> | <!-- -->                                         |
+|----------|--------------------------------------------------|
+| maven    | `$ ./mvnw clean test -Dtest=StringsTest        ` |
+| gradle   | `$ ./gradlew test --tests StringsTest.trunctate` |
 
 To run a single method in a test class:
 
-|    <!-- -->  | <!-- -->                                           |
-|--------------|----------------------------------------------------|
-| maven        | `$ ./mvnw clean test -Dtest=StringsTest#trunctate` |
-| gradle       | `$ ./gradlew test --tests StringsTest.trunctate  ` |
+| <!-- --> | <!-- -->                                           |
+|----------|----------------------------------------------------|
+| maven    | `$ ./mvnw clean test -Dtest=StringsTest#trunctate` |
+| gradle   | `$ ./gradlew test --tests StringsTest.trunctate  ` |
 
 ##### Build to deploy to an Environment
 
 To build a deployable war file for deployment:
 
-|    <!-- -->  | <!-- -->                 |
-|--------------|--------------------------|
-| maven        | `$ ./mvnw clean package` |
-| gradle       | `$ ./gradlew war       ` |
+| <!-- --> | <!-- -->                 |
+|----------|--------------------------|
+| maven    | `$ ./mvnw clean package` |
+| gradle   | `$ ./gradlew war       ` |
 
 You should have a deployable war file in the target directory. Deploy as usual in a servlet container, e.g. tomcat.
 
@@ -83,7 +81,7 @@ Download and install maven (version 3.2.1+) or Gradle (version 7.3.3+).
 
 The files for the project are kept here:
 
-<https://github.com/fduckart/uh-casdemo>
+<https://github.com/UniversityOfHawaii/uh-casdemo>
 
 ##### Important Note
 
