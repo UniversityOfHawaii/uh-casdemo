@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="header :: copy"></head>
+<body>
+    <nav th:replace="menubar :: copy"></nav>
+
+    <!--  Content container -->
+    <div class="container-lg">
+        <div class="jumbotron text-center my-3">
+            <h1 class="display-4 dropshadow">Identity <span class="amp">&amp;</span> Access Management<br/>CAS Demonstration</h1>
+            <p class="lead" th:text="${jumbotron}"></p>
+            <div sec:authorize="isAnonymous()">
+                <p><a class="btn btn-lg btn-success" th:href="@{/login}" role="button">UH Login Here</a></p>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <form th:action="@{/logout}" method="post" id="logout_form">
+                    <button type="submit" class="btn btn-outline-primary">Logout</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row"><p></p></div>
+
+        <div class="row row-cols-1 row-cols-sm-2 justify-content-md-center card-deck px-2 px-sm-0">
+            <div th:insert="home-card :: frag" th:with="title=#{home.contact}, message=#{home.contact.message}, href=@{/help/contact}"></div>
+            <div th:insert="home-card :: frag" th:with="title=#{home.faq}, message=#{home.faq.message}, href=@{/help/faq}"></div>
+        </div>
+
+    </div>
+    <!-- / Content container. -->
+
+    <div th:replace="footer :: copy"></div>
+</body>
+</html>

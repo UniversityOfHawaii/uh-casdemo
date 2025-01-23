@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="header :: copy"></head>
+<body ng-app="casdemoApp">
+    <nav th:replace="menubar :: copy"></nav>
+
+    <!--  Content container -->
+    <div class="container-fluid" ng-controller="CampusJsController" data-ng-init="init()">
+        <div class="card border-1">
+            <div class="card-header border-1">
+                 <form>
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="ml-2 ml-sm-0 my-0">Campus</h4>
+                        </div>
+                        <div class="col">
+                            <input class="form-control form-control-sm" placeholder="Type to filter text..."
+                                   type="text" ng-model="searchFor" size="30" autofocus="autofocus"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-body text-left">
+                <div class="table-responsive">
+                    <table class="table table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th>Code</th>
+                                <th>ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="c in campuses | filter:searchFor">
+                                <td>{{c.description}}</td>
+                                <td>{{c.code}}</td>
+                                <td>{{c.code}}</td>
+                                <td>{{c.id}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / Content container. -->
+
+    <div th:replace="footer :: copy"></div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+spring:
+    profiles:
+        active: default
+    jmx:
+        enabled: false
+    mail:
+        host: smtp-server.hawaii.edu
+    h2:
+        console:
+            enabled: false
+    jpa:
+        open-in-view: false
+
+server:
+    servlet:
+        context-path: /casdemo
+    session:
+        timeout: 18000
+
+management:
+    security:
+        enabled: false
+
+app:
+    mail:
+        enabled: false
+        mail:
+            from: no-reply@its.hawaii.edu
+    url:
+        home: /
+        base: http://localhost:8080/casdemo
+        error-login: ${app.url.base}/error-login
+    datasource:
+        url: jdbc:h2:mem:casdemodb;INIT=create schema IF NOT EXISTS uhapp_db;DB_CLOSE_ON_EXIT=FALSE
+        driver-class-name: org.h2.Driver
+        driverClassName: org.h2.Driver
+        username: sa
+        password:
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        show-sql: false
+        hibernate:
+            ddl-auto: create-drop
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.H2Dialect
+                cache:
+                    provider_class: org.hibernate.cache.HashtableCacheProvider
+                connection:
+                    shutdown: true
+
+cas:
+    mainUrl: https://cas-test.its.hawaii.edu/cas
+    login:
+        url: "${cas.mainUrl}/login"
+    service: "${app.url.base}/login/cas"
+    authenticateAllArtifacts: true
+    sendRenew: true
+    saml:
+        tolerance: 180000
+
+logging:
+    pattern:
+        console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(%-8level) --- %clr(%-80.80logger{80}){cyan} : %m%n"
+    level:
+        edu.hawaii.its.casdemo: INFO
+        org.springframework: INFO
+        org.springframework.boot.test.mock.web: WARN
+        org.springframework.cache: INFO
+        org.springframework.security.web.authentication: INFO
+        org.springframework.security.web: INFO
+        org.hibernate: WARN
+        org.jasig.cas: WARN
+
+---
+environment: localhost
+spring:
+    config:
+        activate:
+            on-profile: localhost
+        import: optional:file:${user.home}/.${user.name}-conf/casdemo-overrides.properties
+
+    devtools:
+        add-properties: false
+---
+environment: test
+spring:
+    config:
+        activate:
+            on-profile: test
+app:
+    url:
+        base: https://www.test.hawaii.edu/casdemo
+
+cas:
+    mainUrl: https://authn.hawaii.edu/cas
+
+...

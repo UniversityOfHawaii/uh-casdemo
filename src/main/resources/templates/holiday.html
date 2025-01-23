@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="header :: copy"></head>
+<body ng-app="casdemoApp">
+    <nav th:replace="menubar :: copy"></nav>
+
+    <!--  Content container -->
+    <div class="container-fluid" ng-controller="HolidayJsController" data-ng-init="init()">
+        <div class="card border-1">
+            <div class="card-header border-1">
+                 <form>
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="ml-2 ml-sm-0 my-0">
+                                <select class="form-control float-sm-left" id="yearCode" name="yearCode" ng-model="yearCode">
+                                    <option ng-repeat="y in years">{{y}}</option>
+                                    <option value="">(all years)</option>
+                                </select>
+                            </span>
+                        </div>
+                        <div class="offset-2 col-8">
+                            <input class="form-control float-sm-right" placeholder="Type to filter text..." type="text" ng-model="searchFor" size="30"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-body text-left">
+                <div class="table-responsive">
+                    <table class="table table-hover table-sm">
+                        <thead>
+                            <tr ng-show="filtered.length > 0">
+                                <th>Holiday</th>
+                                <th>Observed</th>
+                                <th>Official</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="h in holidays | orderBy:orderByField:reverseSort | filter:yearCode | filter:searchFilter() as filtered">
+                                <td>{{h.description}}</td>
+                                <td>{{h.observedDateFull}}</td>
+                                <td>{{h.officialDateFull}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / Content container. -->
+
+    <div th:replace="footer :: copy"></div>
+</body>
+</html>

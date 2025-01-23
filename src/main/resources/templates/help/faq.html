@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+<head th:replace="header :: copy"></head>
+<body>
+    <nav th:replace="menubar :: copy"></nav>
+
+    <!--  Content container -->
+    <div class="container-lg  text-responsive px-0 py-0">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="ml-2 ml-sm-0">Frequently Asked Questions</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td colspan="2" align="left" valign="top"><b>General Questions</b></td>
+                        </tr>
+                        <tr>
+                            <td align="left" valign="top">Q: Who can  answer some basic questions about the application?</td>
+                            <td align="left" valign="top">A: Send an email to <a href="mailto:its-iam-help@lists.hawaii.edu">ITS Identity &amp; Access Management Group</a></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="left" valign="top"><b>Resources</b></td>
+                        </tr>
+                        <tr>
+                            <td align="left" valign="top">Q: Can I get the source code for this project?</td>
+                            <td align="left" valign="top">A: Sure thing. It is available at this <a href="https://github.com/fduckart/uh-casdemo" target="_git_repo">github repository.</a></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="left" valign="top"><b>Technologies</b></td>
+                        </tr>
+                        <tr>
+                            <td align="left" valign="top">Q: What did you use to create the site?</td>
+                            <td align="left" valign="top">
+                                <ul class="list-unstyled">
+                                    <li>Apache Maven</li>
+                                    <li>Apache Tomcat</li>
+                                    <li>Java</li>
+                                    <li>
+                                        Spring Boot
+                                        <a href="https://docs.spring.io/spring-boot/docs/2.7.18/reference/htmlsingle/" target="_spbt">(Guide)</a>
+                                    </li>
+                                    <li>
+                                        Spring Framework
+                                        <a href="http://docs.spring.io/spring/docs/5.3.31/reference/html/" target="_sprgu">(Guide)</a>
+                                        <a href="http://docs.spring.io/spring/docs/5.3.31/javadoc-api/" target="_sprapi">(API)</a>
+                                    </li>
+                                    <li>
+                                        Spring Security
+                                    </li>
+                                    <li>
+                                        Spring Data JPA
+                                        <a href="https://docs.spring.io/spring-data/jpa/docs/2.7.18/reference/html/" target="_sprdatgu">(Guide)</a>
+                                        <a href="https://docs.spring.io/spring-data/jpa/docs/2.7.18/api/" target="_sprdatapi">(API)</a>
+                                    </li>
+                                    <li>
+                                        Spring Data Commons
+                                        <a href="https://docs.spring.io/spring-data/commons/docs/2.7.18/reference/html/" target="_sprdatcogu">(Guide)</a>
+                                        <a href="https://docs.spring.io/spring-data/commons/docs/2.7.18/api/" target="_sprdatapi">(API)</a>
+                                    </li>
+                                    <li>
+                                        Thymeleaf
+                                        <a href="https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#what-is-thymeleaf" target="_thylgu">(Guide)</a>
+                                    </li>
+                                    <li>
+                                        Bootstrap
+                                        <a href="https://getbootstrap.com/docs/4.4/getting-started/introduction/" target="_boogu">(Guide)</a>
+                                    </li>
+                                    <li>
+                                        AngularJS
+                                        <a href="https://code.angularjs.org/1.5.8/docs/guide" target="_anggu">(Guide)</a>
+                                        <a href="https://code.angularjs.org/1.5.8/docs/api" target="_angapi">(API)</a>
+                                    </li>
+                                    <li>
+                                        AngularJS Bootstrap UI
+                                        <a href="https://github.com/angular-ui/bootstrap/tree/2.2.0/src/modal/docs" target="_angguui">(API)</a>
+                                    </li>
+                                    <li>
+                                        JQuery
+                                        <a href="http://api.jquery.com/" target="_jquapi">(API)</a>
+                                    </li>
+                                    <li>
+                                        Jasmine
+                                        <a href="https://jasmine.github.io/" target="_jasmine">(Guide)</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / Content container. -->
+
+    <!--
+        <div th:replace="footer :: copy"></div>
+    -->
+
+</body>
+</html>
