@@ -14,12 +14,10 @@ import javax.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
-
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.Logger;
 
 import edu.hawaii.its.casdemo.configuration.SpringBootWebApplication;
 import edu.hawaii.its.casdemo.model.Message;
@@ -28,8 +26,16 @@ import edu.hawaii.its.casdemo.model.Message;
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class MessageServiceTest {
 
+    @Value("${app.mail.from:no-reply}")
+    private String from;
+
     @Autowired
     private MessageService messageService;
+
+    @Test
+    public void basics() {
+        assertThat(from, equalTo("no-reply@its.hawaii.edu"));
+    }
 
     @Test
     public void findMessage() {

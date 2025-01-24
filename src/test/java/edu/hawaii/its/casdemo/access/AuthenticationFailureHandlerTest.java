@@ -18,7 +18,7 @@ public class AuthenticationFailureHandlerTest {
 
     @Test
     public void misc() throws IOException {
-        String baseUrl = "http://test.hawaii.edu/casdemo";
+        String baseUrl = "https://test.hawaii.edu/casdemo";
         String errorUrl = baseUrl + "/error-login";
         AuthenticationFailureHandler handler = new AuthenticationFailureHandler(errorUrl);
         assertThat(handler.getRedirectUrl(), equalTo(errorUrl));

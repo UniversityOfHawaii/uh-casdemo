@@ -24,8 +24,7 @@ management:
 app:
     mail:
         enabled: false
-        mail:
-            from: no-reply@its.hawaii.edu
+        from: no-reply@its.hawaii.edu
     url:
         home: /
         base: http://localhost:8080/casdemo

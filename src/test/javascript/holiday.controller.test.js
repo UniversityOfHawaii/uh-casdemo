@@ -3,10 +3,9 @@ describe("HolidayJsController", function() {
 
     beforeEach(module("casdemoApp"));
 
-    var app;
-    var scope;
-    var controller;
-    var dataProvider;
+    let app;
+    let scope;
+    let controller;
 
     beforeEach(inject(function($controller, $rootScope, App, dataProvider) {
         scope = $rootScope.$new();
@@ -18,6 +17,11 @@ describe("HolidayJsController", function() {
         });
     }));
 
+    it("basics", function() {
+        expect(controller).toBeDefined();
+        expect(controller.getDataProvider()).toBeDefined();
+    });
+
     it("checkInitFunction", function() {
         spyOn(scope, "loadData").and.callFake(function() {
             scope.years.push(2009);
@@ -25,7 +29,6 @@ describe("HolidayJsController", function() {
             scope.years.push(2011);
         });
 
-        expect(controller).toBeDefined();
         expect(scope.years).toBeDefined();
         expect(scope.years.length).toEqual(0);
         expect(app.Url.Api.HOLIDAY).toBeDefined();

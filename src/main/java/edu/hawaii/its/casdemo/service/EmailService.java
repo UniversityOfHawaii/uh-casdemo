@@ -1,5 +1,7 @@
 package edu.hawaii.its.casdemo.service;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,12 @@ public class EmailService {
     @Autowired
     public EmailService(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        logger.info("isEnabled: " + isEnabled);
+        logger.info("from: " + from);
     }
 
     public boolean isEnabled() {

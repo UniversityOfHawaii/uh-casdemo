@@ -3,11 +3,10 @@ describe("ErrorJsController", function() {
 
     beforeEach(module("casdemoApp"));
 
-    var app;
-    var scope;
-    var controller;
-    var window;
-    var dataProvider;
+    let app;
+    let scope;
+    let controller;
+    let window;
 
     beforeEach(inject(function($controller, $rootScope, $window, App, dataProvider) {
         scope = $rootScope.$new();
@@ -24,7 +23,7 @@ describe("ErrorJsController", function() {
     it("checkSubmit", function() {
         expect(controller).toBeDefined();
 
-        var data = "";
+        let data = "";
         spyOn(scope, "submit").and.callFake(function() {
             data = "Slouches towards Bethlehem";
         });

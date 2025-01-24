@@ -17,6 +17,10 @@
             });
         };
 
+        this.getDataProvider = function() {
+            return dataProvider;
+        };
+
         $scope.loadData = function() {
             dataProvider.loadData(function(d) {
                 const data = d.data;
