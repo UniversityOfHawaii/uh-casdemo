@@ -77,7 +77,7 @@ public class HolidayServiceTest {
     public void findTypes() {
         List<Type> types = holidayService.findTypes();
 
-        Type ht = types.get(0);
+        Type ht = types.getFirst();
         assertThat(ht.getId(), equalTo(2));
         assertThat(ht.getDescription(), equalTo("Federal"));
 

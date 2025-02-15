@@ -2,9 +2,9 @@ package edu.hawaii.its.casdemo.configuration;
 
 import java.util.Properties;
 
-import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
+import jakarta.annotation.PostConstruct;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

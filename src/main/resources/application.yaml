@@ -62,7 +62,7 @@ logging:
     pattern:
         console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(%-8level) --- %clr(%-80.80logger{80}){cyan} : %m%n"
     level:
-        edu.hawaii.its.casdemo: INFO
+        edu.hawaii.its.casdemo: DEBUG
         org.springframework: INFO
         org.springframework.boot.test.mock.web: WARN
         org.springframework.cache: INFO
@@ -81,6 +81,10 @@ spring:
 
     devtools:
         add-properties: false
+logging:
+    level:
+        edu.hawaii.its.casdemo: DEBUG
+
 ---
 environment: test
 spring:
@@ -93,5 +97,9 @@ app:
 
 cas:
     mainUrl: https://authn.hawaii.edu/cas
+
+logging:
+    level:
+        edu.hawaii.its.casdemo: INFO
 
 ...

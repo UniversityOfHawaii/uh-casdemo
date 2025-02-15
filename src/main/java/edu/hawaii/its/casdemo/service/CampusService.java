@@ -12,8 +12,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.hawaii.its.casdemo.repository.CampusRepository;
 import edu.hawaii.its.casdemo.model.Campus;
+import edu.hawaii.its.casdemo.repository.CampusRepository;
 
 @Service
 public class CampusService {
@@ -42,7 +42,7 @@ public class CampusService {
     @Cacheable(value = "campusesById", key = "#id")
     public Campus find(Integer id) {
         Optional<Campus> campus = campusRepository.findById(id);
-        return campus.isPresent() ? campus.get() : null;
+        return campus.orElse(null);
     }
 
     @Transactional

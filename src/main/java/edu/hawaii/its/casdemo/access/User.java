@@ -1,5 +1,6 @@
 package edu.hawaii.its.casdemo.access;
 
+import java.io.Serial;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -9,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 public class User extends org.springframework.security.core.userdetails.User {
 
+    @Serial
     private static final long serialVersionUID = 5L;
     private final String uhUuid;
     private final UhAttributes attributes;

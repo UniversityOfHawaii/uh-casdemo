@@ -31,8 +31,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import edu.hawaii.its.casdemo.access.User;
 import edu.hawaii.its.casdemo.configuration.SpringBootWebApplication;
-import edu.hawaii.its.casdemo.service.EmailService;
 import edu.hawaii.its.casdemo.model.Feedback;
+import edu.hawaii.its.casdemo.service.EmailService;
 
 @SpringBootTest(classes = { SpringBootWebApplication.class })
 public class HomeControllerTest {
@@ -324,8 +324,8 @@ public class HomeControllerTest {
     @Test
     public void errorLogin() throws Exception {
         MockHttpSession session = new MockHttpSession();
-        session.putValue("login.error.message", "A login error occurred.");
-        session.putValue("login.error.exception.message", new RuntimeException("What?"));
+        session.setAttribute("login.error.message", "A login error occurred.");
+        session.setAttribute("login.error.exception.message", new RuntimeException("What?"));
         mockMvc.perform(get("/error-login")
                         .session(session))
                 .andExpect(status().isOk())

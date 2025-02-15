@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="header :: copy"></head>
+<head th:replace="~{header :: copy}"></head>
 <body ng-app="casdemoApp">
-    <nav th:replace="menubar :: copy"></nav>
+    <nav th:replace="~{menubar :: copy}"></nav>
 
     <!--  Content container -->
     <div class="container-fluid" ng-controller="HolidayJsController" data-ng-init="init()">
@@ -48,6 +48,6 @@
     </div>
     <!-- / Content container. -->
 
-    <div th:replace="footer :: copy"></div>
+    <div th:replace="~{footer :: copy}"></div>
 </body>
 </html>

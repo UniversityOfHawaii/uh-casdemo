@@ -9,8 +9,11 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.LoggerFactory;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
@@ -65,6 +68,12 @@ public class EmailServiceTest {
         // Test send.
         emailService.sendCasData(user);
 
+        // Turn down logging just for a second, just
+        // to reduce the Exception noise a little bit.
+        Logger logger = (Logger) LoggerFactory.getLogger(EmailService.class);
+        Level level = logger.getLevel();
+        logger.setLevel(Level.OFF);
+
         // Test send, but with an internal exception.
         assertFalse(sendRan);
         JavaMailSender sender = new JavaMailSenderDummy() {
@@ -82,6 +91,12 @@ public class EmailServiceTest {
 
     @Test
     public void sendFeedbackData() {
+        // Turn down logging just for a second, just
+        // to reduce the Exception noise a little bit.
+        Logger logger = (Logger) LoggerFactory.getLogger(EmailService.class);
+        Level level = logger.getLevel();
+        logger.setLevel(Level.OFF);
+
         JavaMailSender sender = new JavaMailSenderDummy() {
             @Override
             public void send(SimpleMailMessage arg0) throws MailException {
@@ -150,5 +165,8 @@ public class EmailServiceTest {
         emailService.setEnabled(true);
         emailService.sendFeedbackData(user, new Feedback(new Exception("cute")));
         assertTrue(sendRan);
+
+        // Put original logging level back.
+        logger.setLevel(level);
     }
 }

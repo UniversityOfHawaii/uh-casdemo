@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
 >
-<head th:replace="header :: copy"></head>
+<head th:replace="~{header :: copy}"></head>
 <body>
-    <nav th:replace="menubar :: copy"></nav>
+    <nav th:replace="~{menubar :: copy}"></nav>
 
     <!--  Content container -->
-    <div class="container-fluid">
+    <div class="container-fluid pt-2 pb-5">
         <div class="card border-1">
             <div class="card-header border-1">
                 <h4 class="ml-2 ml-sm-0 my-0">Login Details</h4>
@@ -33,7 +33,7 @@
     </div>
     <!-- / Content container. -->
 
-    <div th:replace="footer :: copy"></div>
+    <div th:replace="~{footer :: copy}"></div>
 
 </body>
 </html>

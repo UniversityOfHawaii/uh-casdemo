@@ -2,6 +2,8 @@ package edu.hawaii.its.casdemo.service;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -16,8 +18,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
 import edu.hawaii.its.casdemo.configuration.SpringBootWebApplication;
-import edu.hawaii.its.casdemo.repository.CampusRepository;
 import edu.hawaii.its.casdemo.model.Campus;
+import edu.hawaii.its.casdemo.repository.CampusRepository;
 
 @SpringBootTest(classes = { SpringBootWebApplication.class })
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
@@ -79,8 +81,8 @@ public class CampusServiceTest {
         final long count0 = campusService.count();
         List<Campus> campuses = campusService.findAll();
 
-        Campus oX = campusService.find(campuses.get(0).getId());
-        Campus oY = campuses.get(campuses.size() - 1);
+        Campus oX = campusService.find(campuses.getFirst().getId());
+        Campus oY = campuses.getLast();
 
         // Make sure state id doesn't exist first.
         Integer id = oY.getId() + 1;
@@ -93,11 +95,12 @@ public class CampusServiceTest {
         campus.setActual("N");
 
         // What we are testing.
-        campusService.addCampus(campus);
+        Campus c = campusService.addCampus(campus);
 
         // Check that we have a new record.
         long count1 = campusService.count();
         assertThat(count1, equalTo(count0 + 1));
+        assertThat(c, is(notNullValue()));
 
         // Check the new record.
         Campus oZ = campusService.find(id);

@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.2</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
     <groupId>edu.hawaii.its</groupId>
     <artifactId>casdemo</artifactId>
@@ -25,20 +31,12 @@
         <url>https://github.com/UniversityOfHawaii/uh-casdemo</url>
     </scm>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.18</version>
-        <relativePath/>
-    </parent>
-
     <properties>
-        <maven.version>3.5.2</maven.version>
         <surefireForkCount>1</surefireForkCount>
-        <cas.client.version>3.6.4</cas.client.version>
-        <java.cas.client.version>4.0.4</java.cas.client.version>
+        <java.version>23</java.version>
 
-        <bootstrap-version>4.4.1</bootstrap-version>
+        <bootstrap.version>5.2.3</bootstrap.version>
+        <popper.js.version>2.11.8</popper.js.version>
         <jquery-version>3.4.1</jquery-version>
         <angularjs-version>1.5.8</angularjs-version>
         <angular-mocks-version>1.5.8</angular-mocks-version>
@@ -102,43 +100,13 @@
             <artifactId>commons-dbcp2</artifactId>
         </dependency>
 
-        <!-- Hibernate JPA Provider -->
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.1-api</artifactId>
-            <version>1.0.2.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-        </dependency>
-
-        <!-- CAS related. -->
-        <!-- Note:
-            org.springframework.security has a dependency on the jasig cas client,
-            so it cannot be upgraded to the apero cas client at the moment.
-        -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-cas</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jasig.cas.client</groupId>
-            <artifactId>cas-client-core</artifactId>
-            <version>${cas.client.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jasig.cas.client</groupId>
-            <artifactId>cas-client-support-saml</artifactId>
-            <version>${cas.client.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+            <artifactId>thymeleaf-extras-springsecurity6</artifactId>
         </dependency>
 
         <!-- Test -->
@@ -159,7 +127,12 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>${bootstrap-version}</version>
+            <version>${bootstrap.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>popperjs__core</artifactId>
+            <version>2.11.8</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
@@ -204,19 +177,27 @@
         </dependency>
     </dependencies>
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0-M6</version>
-                    <configuration>
-                        <forkCount>${surefireForkCount}</forkCount>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>properties</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M6</version>
+                <configuration>
+                    <!--suppress MavenModelInspection -->
+                    <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar}</argLine>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -276,7 +257,7 @@
                     <preloadSources>
                         <source>classpath/META-INF/resources/webjars/angularjs/${angularjs-version}/angular.min.js"></source>
                         <source>classpath/META-INF/resources/webjars/jquery/${jquery-version}/jquery.min.js</source>
-                        <source>classpath/META-INF/resources/webjars/bootstrap/${bootstrap-version}/js/bootstrap.min.js</source>
+                        <source>classpath/META-INF/resources/webjars/bootstrap/${bootstrap.version}/js/bootstrap.min.js</source>
                         <source>classpath/META-INF/resources/webjars/angular-ui-bootstrap/2.2.0/ui-bootstrap.min.js</source>
                         <source>classpath/META-INF/resources/webjars/angular-ui-bootstrap/2.2.0/ui-bootstrap-tpls.min.js</source>
                         <source>classpath/META-INF/resources/webjars/angular-ui-grid/4.0.6/ui-grid.min.js</source>
@@ -314,6 +295,8 @@
                                 <echo level="info">$ mvn -Dmaven.test.skip=true clean package</echo>
                                 <echo level="info">$ mvn clean spring-boot:run</echo>
                                 <echo level="info">$ mvn spring-boot:run -Dspring-boot.run.jvmArguments="..."</echo>
+                                <!--suppress MavenModelInspection -->
+                                <echo level="info">org.mockito:mockito-core:jar: ${org.mockito:mockito-core:jar}</echo>
                             </target>
                         </configuration>
                     </execution>

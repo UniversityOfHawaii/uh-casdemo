@@ -55,7 +55,7 @@ public class HolidayTest {
         holiday.setTypes(null);
         assertNotNull(holiday.getTypes());
         assertThat(holiday.getTypes().size(), equalTo(0));
-        holiday.setTypes(new ArrayList<Type>());
+        holiday.setTypes(new ArrayList<>());
         assertThat(holiday.getTypes().size(), equalTo(0));
 
         assertNull(holiday.getObservedDate());
@@ -192,7 +192,7 @@ public class HolidayTest {
         assertThat(holiday.getTypes().size(), equalTo(0));
         holiday.addType(type);
         assertThat(holiday.getTypes().size(), equalTo(1));
-        Type t = holiday.getTypes().get(0);
+        Type t = holiday.getTypes().getFirst();
         assertThat(t.getId(), equalTo(1));
         assertThat(t.getDescription(), equalTo("test-type"));
         assertThat(t.getVersion(), equalTo(22));

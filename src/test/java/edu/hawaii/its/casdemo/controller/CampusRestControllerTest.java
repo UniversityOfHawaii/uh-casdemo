@@ -7,13 +7,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-import java.nio.charset.Charset;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
@@ -22,11 +19,6 @@ import edu.hawaii.its.casdemo.configuration.SpringBootWebApplication;
 
 @SpringBootTest(classes = { SpringBootWebApplication.class })
 public class CampusRestControllerTest {
-
-    final MediaType APPLICATION_JSON_UTF8 =
-            new MediaType(MediaType.APPLICATION_JSON.getType(),
-                    MediaType.APPLICATION_JSON.getSubtype(),
-                    Charset.forName("utf8"));
 
     @Autowired
     private WebApplicationContext context;

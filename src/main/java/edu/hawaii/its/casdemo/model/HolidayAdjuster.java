@@ -11,19 +11,11 @@ public class HolidayAdjuster implements TemporalAdjuster {
     @Override
     public Temporal adjustInto(Temporal temporal) {
         DayOfWeek dayOfWeek = DayOfWeek.of(temporal.get(ChronoField.DAY_OF_WEEK));
-        int daysToAdd;
-
-        switch (dayOfWeek) {
-            case SATURDAY:
-                daysToAdd = -1;
-                break;
-            case SUNDAY:
-                daysToAdd = 1;
-                break;
-            default:
-                daysToAdd = 0;
-                break;
-        }
+        int daysToAdd = switch (dayOfWeek) {
+            case SATURDAY -> -1;
+            case SUNDAY -> 1;
+            default -> 0;
+        };
 
         return temporal.plus(daysToAdd, ChronoUnit.DAYS);
     }

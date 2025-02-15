@@ -1,14 +1,17 @@
 package edu.hawaii.its.casdemo.access;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 
-import org.jasig.cas.client.authentication.AttributePrincipal;
-import org.jasig.cas.client.authentication.AttributePrincipalImpl;
-import org.jasig.cas.client.validation.Assertion;
+import org.apereo.cas.client.authentication.AttributePrincipal;
+import org.apereo.cas.client.authentication.AttributePrincipalImpl;
+import org.apereo.cas.client.validation.Assertion;
 
 public class AssertionDummy implements Assertion {
 
+    @Serial
     private static final long serialVersionUID = 11L;
 
     private String username;
@@ -26,6 +29,11 @@ public class AssertionDummy implements Assertion {
     @Override
     public Map<String, Object> getAttributes() {
         return null;
+    }
+
+    @Override
+    public Map<String, Serializable> getContext() {
+        return Map.of();
     }
 
     @Override

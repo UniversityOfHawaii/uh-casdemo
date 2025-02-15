@@ -30,8 +30,7 @@ public class UhCasAttributes implements UhAttributes {
         this.map = map;
         if (map != null) {
             for (Object key : map.keySet()) {
-                if (key != null && key instanceof String) {
-                    String k = (String) key;
+                if (key instanceof String k) {
                     Object v = map.get(key);
                     if (v != null) {
                         if (v instanceof String) {
@@ -67,7 +66,7 @@ public class UhCasAttributes implements UhAttributes {
         if (values != null) {
             // Check expected case first.
             if (values.size() == 1) {
-                return values.get(0); // We are done.
+                return values.getFirst(); // We are done.
             }
 
             if (values.size() > 1) {
@@ -81,7 +80,7 @@ public class UhCasAttributes implements UhAttributes {
 
                 // Couldn't match up username with uid,
                 // so just return first value.
-                return values.get(0); // We are done.
+                return values.getFirst(); // We are done.
             }
         }
 
@@ -118,7 +117,7 @@ public class UhCasAttributes implements UhAttributes {
     @Override
     public String getValue(String name) {
         List<String> results = getValues(name);
-        return results.isEmpty() ? "" : results.get(0);
+        return results.isEmpty() ? "" : results.getFirst();
     }
 
     @Override

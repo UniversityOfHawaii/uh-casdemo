@@ -9,8 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javax.persistence.EntityManager;
-
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,8 +108,9 @@ public class MessageServiceTest {
         assertSame(m0, m1);
 
         m0.setText("This land is your land.");
-        messageService.update(m0);
+        Message m00 = messageService.update(m0);
         assertSame(m0, m1);
+        assertSame(m0, m00);
 
         m1 = messageService.findMessage(Message.GATE_MESSAGE);
         assertSame(m0, m1);
@@ -122,11 +124,12 @@ public class MessageServiceTest {
         m3.setEnabled("Y");
         m3.setText("Testing");
         m3.setTypeId(1);
-        messageService.add(m3);
-
-        Message m4 = messageService.findMessage(999);
-        assertEquals(m4, m3);
+        Message m4 = messageService.add(m3);
         assertSame(m4, m3);
+
+        Message m5 = messageService.findMessage(999);
+        assertEquals(m5, m3);
+        assertSame(m5, m3);
     }
 
 }

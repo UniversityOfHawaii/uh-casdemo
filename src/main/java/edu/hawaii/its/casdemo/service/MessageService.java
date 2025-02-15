@@ -1,8 +1,7 @@
 package edu.hawaii.its.casdemo.service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.cache.annotation.CacheEvict;

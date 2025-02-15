@@ -1,6 +1,7 @@
 package edu.hawaii.its.casdemo.model;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -12,6 +13,7 @@ import edu.hawaii.its.casdemo.util.Dates;
 
 public class HolidayDateShortDeserializer extends StdDeserializer<LocalDate> {
 
+    @Serial
     private static final long serialVersionUID = 159L;
     private DateTimeFormatter format = DateTimeFormatter.ofPattern(Dates.DATE_FORMAT_SHORT);
 

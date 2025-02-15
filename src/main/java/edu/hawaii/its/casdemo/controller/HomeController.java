@@ -1,9 +1,8 @@
 package edu.hawaii.its.casdemo.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -17,15 +16,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.hawaii.its.casdemo.access.User;
 import edu.hawaii.its.casdemo.access.UserContextService;
-import edu.hawaii.its.casdemo.service.EmailService;
-import edu.hawaii.its.casdemo.service.MessageService;
 import edu.hawaii.its.casdemo.model.Feedback;
 import edu.hawaii.its.casdemo.model.Message;
+import edu.hawaii.its.casdemo.service.EmailService;
+import edu.hawaii.its.casdemo.service.MessageService;
 
 @Controller
 public class HomeController {
 
-    private static final Log logger = LogFactory.getLog(HomeController.class);
+    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     @Autowired
     private EmailService emailService;
@@ -103,6 +102,7 @@ public class HomeController {
 
     @GetMapping(value = "/404")
     public String invalid() {
+        logger.debug("invalid; 404 redirect");
         return "redirect:/";
     }
 
@@ -143,7 +143,7 @@ public class HomeController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/feedback")
     public String feedbackSubmit(@ModelAttribute Feedback feedback) {
-        logger.debug("feedback: " + feedback);
+        logger.debug("feedback: {}", feedback);
         User user = userContextService.getCurrentUser();
         emailService.sendFeedbackData(user, feedback);
         return "feedback/result";

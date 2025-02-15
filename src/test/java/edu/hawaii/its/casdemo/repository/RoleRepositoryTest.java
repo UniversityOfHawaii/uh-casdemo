@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import edu.hawaii.its.casdemo.configuration.SpringBootWebApplication;
 import edu.hawaii.its.casdemo.model.Role;
 
+@SuppressWarnings("OptionalGetWithoutIsPresent")
 @SpringBootTest(classes = { SpringBootWebApplication.class })
 public class RoleRepositoryTest {
 

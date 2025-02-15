@@ -136,7 +136,6 @@ public class UserTest {
                 .create();
         assertNotEquals(u0, ub);
         assertEquals(ua, u0);
-        ub = null;
 
         User uc = new User.Builder()
                 .username("user0")
@@ -145,7 +144,6 @@ public class UserTest {
                 .create();
         assertNotEquals(u0, uc);
         assertNotEquals(uc, u0);
-        uc = null;
 
         User ud = new User.Builder()
                 .username("user0")
@@ -160,7 +158,6 @@ public class UserTest {
                 .authorities(authorities)
                 .create();
         assertEquals(ud, u0);
-        ud = null;
     }
 
     @Test

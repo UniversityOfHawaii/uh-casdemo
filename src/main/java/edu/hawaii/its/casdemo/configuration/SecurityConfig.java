@@ -1,17 +1,20 @@
 package edu.hawaii.its.casdemo.configuration;
 
-import javax.annotation.PostConstruct;
+import static java.util.Collections.singletonList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.jasig.cas.client.proxy.ProxyGrantingTicketStorage;
-import org.jasig.cas.client.proxy.ProxyGrantingTicketStorageImpl;
-import org.jasig.cas.client.session.SingleSignOutFilter;
-import org.jasig.cas.client.validation.Saml11TicketValidator;
+import jakarta.annotation.PostConstruct;
+import org.apereo.cas.client.session.SingleSignOutFilter;
+import org.apereo.cas.client.validation.Cas30ServiceTicketValidator;
+import org.apereo.cas.client.validation.TicketValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.cas.ServiceProperties;
 import org.springframework.security.cas.authentication.CasAssertionAuthenticationToken;
 import org.springframework.security.cas.authentication.CasAuthenticationProvider;
@@ -19,24 +22,22 @@ import org.springframework.security.cas.web.CasAuthenticationEntryPoint;
 import org.springframework.security.cas.web.CasAuthenticationFilter;
 import org.springframework.security.cas.web.authentication.ServiceAuthenticationDetailsSource;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.logout.LogoutFilter;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.util.Assert;
 
 import edu.hawaii.its.casdemo.access.CasUserDetailsService;
 import edu.hawaii.its.casdemo.access.DelegatingAuthenticationFailureHandler;
 import edu.hawaii.its.casdemo.access.UserBuilder;
 
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+@Configuration
+public class SecurityConfig {
 
-    private static final Log logger = LogFactory.getLog(SecurityConfig.class);
+    private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Value("${app.url.base}")
     private String appUrlBase;
@@ -60,12 +61,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void init() {
         logger.info("SecurityConfig starting...");
 
-        logger.info("   appUrlHome: " + appUrlHome);
-        logger.info("   appUrlBase: " + appUrlBase);
-        logger.info("  appUrlError: " + appUrlError);
-        logger.info("   casMainUrl: " + casMainUrl);
-        logger.info("  casLoginUrl: " + casLoginUrl);
-        logger.info("  userBuilder: " + userBuilder);
+        logger.info("   appUrlHome: {}", appUrlHome);
+        logger.info("   appUrlBase: {}", appUrlBase);
+        logger.info("  appUrlError: {}", appUrlError);
+        logger.info("   casMainUrl: {}", casMainUrl);
+        logger.info("  casLoginUrl: {}", casLoginUrl);
+        logger.info("  userBuilder: {}", userBuilder);
 
         Assert.hasLength(appUrlHome, "property 'appUrlHome' is required");
         Assert.hasLength(appUrlBase, "property 'appUrlBase' is required");
@@ -77,11 +78,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public ProxyGrantingTicketStorage proxyGrantingTicketStorage() {
-        return new ProxyGrantingTicketStorageImpl();
-    }
-
-    @Bean
     @ConfigurationProperties(prefix = "cas")
     public ServiceProperties serviceProperties() {
         return new ServiceProperties();
@@ -89,8 +85,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     @ConfigurationProperties(prefix = "cas.saml")
-    public Saml11TicketValidator saml11TicketValidator() {
-        return new Saml11TicketValidator(casMainUrl);
+    public TicketValidator casTicketValidator() {
+        return new Cas30ServiceTicketValidator(casMainUrl);
     }
 
     @Bean
@@ -112,13 +108,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setKey("an_id_for_this_auth_provider_only");
         provider.setAuthenticationUserDetailsService(authenticationUserDetailsService());
         provider.setServiceProperties(serviceProperties());
-        provider.setTicketValidator(saml11TicketValidator());
+        provider.setTicketValidator(casTicketValidator());
         return provider;
     }
 
     @Bean
     public AuthenticationUserDetailsService<CasAssertionAuthenticationToken> authenticationUserDetailsService() {
         return new CasUserDetailsService(userBuilder);
+    }
+
+    @Bean
+    protected AuthenticationManager authenticationManager() {
+        return new ProviderManager(singletonList(casAuthenticationProvider()));
     }
 
     @Bean
@@ -134,8 +135,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ServiceAuthenticationDetailsSource authenticationDetailsSource =
                 new ServiceAuthenticationDetailsSource(serviceProperties());
         filter.setAuthenticationDetailsSource(authenticationDetailsSource);
-
-        filter.setProxyGrantingTicketStorage(proxyGrantingTicketStorage());
         filter.setProxyReceptorUrl("/receptor");
         filter.setServiceProperties(serviceProperties());
 
@@ -157,53 +156,41 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public SecurityContextLogoutHandler securityContextLogoutHandler() {
-        return new SecurityContextLogoutHandler();
-    }
-
-    @Bean
-    public LogoutFilter logoutFilter() {
-        return new LogoutFilter(appUrlHome, securityContextLogoutHandler());
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, CasAuthenticationFilter casAuthenticationFilter) throws Exception {
         http
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/api/**").authenticated()
-                .antMatchers("/css/**").permitAll()
-                .antMatchers("/fonts/**").permitAll()
-                .antMatchers("/images/**").permitAll()
-                .antMatchers("/javascript/**").permitAll()
-                .antMatchers("/webjars/**").permitAll()
-                .antMatchers("/campus", "/campuses").authenticated()
-                .antMatchers("/contact").permitAll()
-                .antMatchers("/error").permitAll()
-                .antMatchers("/error-login").permitAll()
-                .antMatchers("/home").permitAll()
-                .antMatchers("/help/**").permitAll()
-                .antMatchers("/404").permitAll()
-                .antMatchers("/holiday", "/holidays").hasRole("ADMIN")
-                .antMatchers("/holidaygrid").hasRole("ADMIN")
-                .antMatchers("/holidaysgrid").hasRole("ADMIN")
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user").hasRole("USER")
-                .antMatchers("/user/data").hasRole("USER")
-                .antMatchers("/feedback").hasRole("USER")
-                .anyRequest().authenticated()
-                .and()
-                .addFilter(casAuthenticationFilter())
-                .addFilterBefore(logoutFilter(), LogoutFilter.class)
-                .addFilterBefore(singleSignOutFilter(), CasAuthenticationFilter.class)
-                .exceptionHandling().authenticationEntryPoint(casAuthenticationEntryPoint())
-                .and()
-                .logout()
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
-                .logoutUrl("/logout").permitAll()
-                .logoutSuccessUrl(appUrlHome);
+                .headers(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/h2-ui/**").permitAll()
+                        .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/css/**").permitAll()
+                        .requestMatchers("/fonts/**").permitAll()
+                        .requestMatchers("/images/**").permitAll()
+                        .requestMatchers("/javascript/**").permitAll()
+                        .requestMatchers("/webjars/**").permitAll()
+                        .requestMatchers("/campus", "/campuses").authenticated()
+                        .requestMatchers("/contact").permitAll()
+                        .requestMatchers("/error").permitAll()
+                        .requestMatchers("/error-login").permitAll()
+                        .requestMatchers("/home").permitAll()
+                        .requestMatchers("/help/**").permitAll()
+                        .requestMatchers("/404").permitAll()
+                        .requestMatchers("/holiday", "/holidays").hasRole("ADMIN")
+                        .requestMatchers("/holidaygrid").hasRole("ADMIN")
+                        .requestMatchers("/holidaysgrid").hasRole("ADMIN")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/user").hasRole("USER")
+                        .requestMatchers("/user/data").hasRole("USER")
+                        .requestMatchers("/feedback").hasRole("USER")
+                        .requestMatchers("/logout").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .exceptionHandling(exceptions -> exceptions.authenticationEntryPoint(casAuthenticationEntryPoint()))
+                .logout((logout) -> logout.logoutSuccessUrl("/"))
+                .addFilter(casAuthenticationFilter);
+
+        return http.build();
     }
 
 }

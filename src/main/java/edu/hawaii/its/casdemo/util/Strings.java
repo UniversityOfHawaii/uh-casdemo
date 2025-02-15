@@ -1,5 +1,7 @@
 package edu.hawaii.its.casdemo.util;
 
+import java.util.Arrays;
+
 public final class Strings {
 
     public static final String EMPTY = "";
@@ -11,9 +13,7 @@ public final class Strings {
 
     public static String fill(final char ch, final int size) {
         char[] fill = new char[size];
-        for (int i = 0; i < size; i++) {
-            fill[i] = ch;
-        }
+        Arrays.fill(fill, ch);
 
         return new String(fill);
     }

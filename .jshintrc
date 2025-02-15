@@ -1,5 +1,10 @@
 {
   "esversion": 6,
   "strict": true,
-  "laxbreak": true
+  "laxbreak": true,
+  "undef": false,
+  "unused": false,
+  "globals": {
+    "casdemoApp": false
+  }
 }

@@ -1,17 +1,19 @@
 package edu.hawaii.its.casdemo.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "type")
 public class Type implements Serializable {
 
-    public static final long serialVersionUID = 43L;
+    @Serial
+    private static final long serialVersionUID = 43L;
 
     @Id
     @Column(name = "id")

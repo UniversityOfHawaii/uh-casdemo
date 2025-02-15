@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,8 @@ import edu.hawaii.its.casdemo.model.Holiday;
 import edu.hawaii.its.casdemo.model.Type;
 import edu.hawaii.its.casdemo.service.HolidayService;
 import edu.hawaii.its.casdemo.util.Dates;
-import edu.hawaii.its.casdemo.util.Strings;
 
+@SuppressWarnings("OptionalGetWithoutIsPresent")
 @SpringBootTest(classes = SpringBootWebApplication.class)
 public class HolidayRepositoryTest {
 
@@ -34,6 +35,10 @@ public class HolidayRepositoryTest {
 
     @Test
     public void findById() {
+        Optional<Holiday> oh = holidayRepository.findById(1176);
+        assertThat(oh.isPresent(), equalTo(true));
+        Holiday oh1 = oh.get();
+        assertThat(oh1.getDescription(), equalTo("Christmas"));
         Holiday h = holidayRepository.findById(1176).get();
         assertThat(h.getDescription(), equalTo("Christmas"));
         assertThat(h.getHolidayTypes().size(), equalTo(3));
@@ -69,12 +74,6 @@ public class HolidayRepositoryTest {
         h1.setObservedDate(localDate);
         h1.setOfficialDate(localDate);
         h1.setOfficialYear(localDate.getYear());
-
-        System.out.println(Strings.fill('v', 99));
-        System.out.println("    <><><> d: " + localDate);
-        System.out.println("    <><><> y: " + localDate.getYear());
-        System.out.println("    <><><> h: " + h1);
-        System.out.println(Strings.fill('^', 99));
 
         h1 = holidayRepository.save(h1);
 

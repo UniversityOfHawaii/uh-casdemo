@@ -41,7 +41,7 @@ public class UhCasAttributesTest {
     public void loadMapInvalidValueType() {
         Map<Object, Object> map = new HashMap<>();
         map.put("uhuuid", "666666");
-        map.put("uid", new Integer(666));
+        map.put("uid", Integer.valueOf(666));
         UhCasAttributes attributes = new UhCasAttributes(map);
         assertEquals("", attributes.getUsername());
         assertEquals("666666", attributes.getUhUuid());
@@ -53,7 +53,7 @@ public class UhCasAttributesTest {
     public void loadMapInvalidKeyType() {
         Map<Object, Object> map = new HashMap<>();
         map.put("uhuuid", "666666");
-        map.put(new Integer(666), new Integer(666));
+        map.put(Integer.valueOf(666), Integer.valueOf(666));
         UhCasAttributes attributes = new UhCasAttributes(map);
         assertEquals("", attributes.getUsername());
         assertEquals("666666", attributes.getUhUuid());
@@ -64,7 +64,7 @@ public class UhCasAttributesTest {
     @Test
     public void loadMapInvalidTypes() {
         Map<Object, Object> map = new HashMap<>();
-        map.put(new Integer(666), new Integer(666));
+        map.put(Integer.valueOf(666), Integer.valueOf(666));
         UhCasAttributes attributes = new UhCasAttributes(map);
         assertEquals("", attributes.getUsername());
         assertEquals("", attributes.getUhUuid());
@@ -179,7 +179,7 @@ public class UhCasAttributesTest {
         map.put("uhuuid", "666666");
 
         Map<Long, java.util.Date> uidMap = new HashMap<>();
-        uidMap.put(new Long(666), new java.util.Date());
+        uidMap.put(Long.valueOf(666), new java.util.Date());
         map.put("uid", uidMap);
 
         UhCasAttributes attributes = new UhCasAttributes(map);
@@ -216,8 +216,8 @@ public class UhCasAttributesTest {
         assertThat(attributes.getUid(), equalTo("duckart"));
         assertThat(attributes.getUhUuid(), equalTo("666666"));
         assertThat(attributes.getName(), equalTo("Frank"));
-        assertThat(attributes.getMail().get(0), equalTo("frank@example.com"));
-        assertThat(attributes.getAffiliation().get(0), equalTo("aff"));
+        assertThat(attributes.getMail().getFirst(), equalTo("frank@example.com"));
+        assertThat(attributes.getAffiliation().getFirst(), equalTo("aff"));
 
         assertThat(attributes.toString(), containsString("uid=duckart"));
     }

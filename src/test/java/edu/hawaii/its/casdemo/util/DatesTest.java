@@ -27,19 +27,11 @@ public class DatesTest {
     protected LocalDate newYearsDay2000LocalDate;
     protected LocalDate dayMusicDiedLocalDate;
 
-    protected Date christmasDate;
-    protected Date dayMusicDiedDate;
-    protected Date newYearsDay2000Date;
-
     @BeforeEach
     public void setUp() {
         christmasLocalDate = LocalDate.of(1962, Month.DECEMBER, 25);
         newYearsDay2000LocalDate = LocalDate.of(2000, Month.JANUARY, 1);
         dayMusicDiedLocalDate = LocalDate.of(1959, Month.FEBRUARY, 3);
-
-        christmasDate = Dates.toDate(christmasLocalDate);
-        dayMusicDiedDate = Dates.toDate(dayMusicDiedLocalDate);
-        newYearsDay2000Date = Dates.toDate(newYearsDay2000LocalDate);
     }
 
     private Calendar makeCalendar() {
@@ -109,7 +101,6 @@ public class DatesTest {
         assertEquals(Calendar.SUNDAY, cal4.get(Calendar.DAY_OF_WEEK));
         assertEquals(23, cal4.get(Calendar.DAY_OF_MONTH));
         assertEquals(1962, cal4.get(Calendar.YEAR));
-        cal4 = null;
 
         LocalDate date5 = Dates.previousSunday(newYearsDay2000LocalDate);
         Calendar cal5 = Calendar.getInstance();
@@ -118,7 +109,6 @@ public class DatesTest {
         assertEquals(Calendar.DECEMBER, cal5.get(Calendar.MONTH));
         assertEquals(26, cal5.get(Calendar.DAY_OF_MONTH));
         assertEquals(1999, cal5.get(Calendar.YEAR));
-        cal5 = null;
 
         LocalDate date6 = Dates.newLocalDate(2010, Month.AUGUST, 1); // A Sunday.
         Calendar cal6 = Calendar.getInstance();
@@ -127,7 +117,6 @@ public class DatesTest {
         assertEquals(Calendar.AUGUST, cal6.get(Calendar.MONTH));
         assertEquals(1, cal6.get(Calendar.DAY_OF_MONTH));
         assertEquals(2010, cal6.get(Calendar.YEAR));
-        cal6 = null;
     }
 
     @Test

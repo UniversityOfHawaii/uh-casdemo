@@ -59,7 +59,4 @@ public class RoleHolderTest {
         assertThat(roleHolder.toString(), containsString("ROLE_STAFF"));
     }
 
-    @Test
-    public void contains() {
-    }
 }

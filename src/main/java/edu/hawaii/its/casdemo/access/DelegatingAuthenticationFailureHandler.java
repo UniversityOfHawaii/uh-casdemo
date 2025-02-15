@@ -9,8 +9,7 @@ public class DelegatingAuthenticationFailureHandler
         extends org.springframework.security.web.authentication.DelegatingAuthenticationFailureHandler {
 
     public DelegatingAuthenticationFailureHandler(String appUrlError) {
-        super(new LinkedHashMap<Class<? extends org.springframework.security.core.AuthenticationException>,
-                      org.springframework.security.web.authentication.AuthenticationFailureHandler>() {{
+        super(new LinkedHashMap<>() {{
                   put(UsernameNotFoundException.class, new edu.hawaii.its.casdemo.access.AuthenticationFailureHandler(appUrlError));
                   put(AccountExpiredException.class, (request, response, e) -> response.sendRedirect(appUrlError));
               }},

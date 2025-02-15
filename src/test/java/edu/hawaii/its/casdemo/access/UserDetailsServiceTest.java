@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jasig.cas.client.authentication.AttributePrincipal;
-import org.jasig.cas.client.authentication.AttributePrincipalImpl;
-import org.jasig.cas.client.validation.Assertion;
-import org.jasig.cas.client.validation.AssertionImpl;
+import org.apereo.cas.client.authentication.AttributePrincipal;
+import org.apereo.cas.client.authentication.AttributePrincipalImpl;
+import org.apereo.cas.client.validation.Assertion;
+import org.apereo.cas.client.validation.AssertionImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -103,7 +103,7 @@ public class UserDetailsServiceTest {
             userDetailsService.loadUserDetails(assertion);
             fail("Should not have reached here.");
         } catch (Exception e) {
-            assertEquals(e.getClass(), UsernameNotFoundException.class);
+            assertEquals(UsernameNotFoundException.class, e.getClass());
             assertThat(e.getMessage(), containsString("principal is null"));
         }
     }

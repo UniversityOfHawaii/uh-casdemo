@@ -1,4 +1,4 @@
-/*eslint no-undef: "error"*/
+/* eslint no-undef: "error"*/
 
 (function() {
     "use strict";
@@ -16,6 +16,7 @@
             }, App.Url.Api.CAMPUS);
         };
     }
+
     casdemoApp.controller("CampusJsController", CampusJsController);
 
 })();
