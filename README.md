@@ -5,7 +5,7 @@ A web application to demonstrate how to use the UH CAS service.
 
 ##### Java
 
-You'll need a Java JDK to build and run the project (version 1.8+).
+You'll need a Java JDK to build and run the project (version 23+).
 If necessary, be sure to set your JAVA_HOME environment variable.
 
 ##### Building
@@ -75,7 +75,7 @@ Copy the casdemo.war file into the webapps directory of Tomcat.
 
 ##### Build Tool (Optional)
 
-Download and install maven (version 3.2.1+) or Gradle (version 7.3.3+).
+Download and install maven (version 3.8.4+) or Gradle (version 7.3.3+).
 
 ##### Source Repository
 
