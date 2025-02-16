@@ -1,5 +1,6 @@
 A web application to demonstrate how to use the UH CAS service.
 
+![Java 23+](https://img.shields.io/badge/Java-23%2B-blue?logo=java&logoColor=white)
 [![Build and Test](https://github.com/UniversityOfHawaii/uh-casdemo/actions/workflows/build-test.yml/badge.svg)](https://github.com/UniversityOfHawaii/uh-casdemo/actions/workflows/build-test.yml)
 [![Coverage](https://github.com/UniversityOfHawaii/uh-casdemo/blob/badges/jacoco.svg)](https://github.com/UniversityOfHawaii/uh-casdemo/actions/workflows/coverage.yml)
 
