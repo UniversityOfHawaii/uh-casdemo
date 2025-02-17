@@ -20,10 +20,10 @@ Install the necessary project dependencies from the command line:
 
 To start the application:
 
-| <!-- --> | <!-- -->                         |
-|----------|----------------------------------|
-| maven    | `$ ./mvnw clean spring-boot:run` |
-| gradle   | `$ ./gradlew bootRun           ` |
+| <!-- --> | <!-- -->                          |
+|----------|-----------------------------------|
+| maven    | `$ ./mvnw clean spring-boot:run ` |
+| gradle   | `$ ./gradlew bootRun            ` |
 
 After the application starts, navigate to here in a web browser:
 
@@ -46,7 +46,7 @@ To run a test single test class:
 | <!-- --> | <!-- -->                                         |
 |----------|--------------------------------------------------|
 | maven    | `$ ./mvnw clean test -Dtest=StringsTest        ` |
-| gradle   | `$ ./gradlew test --tests StringsTest.trunctate` |
+| gradle   | `$ ./gradlew test --tests StringsTest          ` |
 
 To run a single method in a test class:
 

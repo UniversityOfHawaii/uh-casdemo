@@ -1,5 +1,5 @@
 plugins {
-    id("org.springframework.boot") version "2.7.18"
+    id("org.springframework.boot") version "3.4.2"
     java
     jacoco
     `maven-publish`
@@ -10,9 +10,7 @@ apply(plugin = "io.spring.dependency-management")
 
 repositories {
     mavenLocal()
-    maven {
-        url = uri("https://repo.maven.apache.org/maven2/")
-    }
+    mavenCentral()
 }
 
 dependencies {
@@ -21,6 +19,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-test")
     implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.security:spring-security-cas")
     implementation("org.springframework.boot:spring-boot-starter-mail")
     implementation("org.springframework.boot:spring-boot-devtools")
     implementation("org.springframework:spring-jdbc")
@@ -28,17 +27,13 @@ dependencies {
     implementation("org.springframework:spring-tx")
     implementation("com.h2database:h2")
     implementation("org.apache.commons:commons-dbcp2")
-    implementation("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final")
-    implementation("org.hibernate:hibernate-core")
-    implementation("org.hibernate:hibernate-entitymanager")
     implementation("org.springframework.security:spring-security-cas")
-    implementation("org.jasig.cas.client:cas-client-core:3.6.4")
-    implementation("org.jasig.cas.client:cas-client-support-saml:3.6.4")
-    implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.5.RELEASE")
+    implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
     implementation("org.springframework:spring-test")
     implementation("org.springframework.security:spring-security-test")
     implementation("org.webjars:webjars-locator-core")
-    implementation("org.webjars:bootstrap:4.4.1")
+    implementation("org.webjars:bootstrap:5.2.3")
+    implementation("org.webjars.npm:popperjs__core:2.11.8")
     implementation("org.webjars:jquery:3.4.1")
     implementation("org.webjars:angularjs:1.5.8")
     implementation("org.webjars.bower:angular-ui-grid:4.0.6")
@@ -52,7 +47,7 @@ dependencies {
 group = "edu.hawaii.its"
 version = "1.1"
 description = "casdemo"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.sourceCompatibility = JavaVersion.VERSION_23
 
 publishing {
     publications.create<MavenPublication>("maven") {
