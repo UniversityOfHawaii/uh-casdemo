@@ -69,14 +69,14 @@ You should have a deployable war file in the target directory. Deploy as usual i
 _Important Note:_
 If you are setting up tomcat for the first time, make sure you enable SSL and add any necessary certificates.
 
-Here are instructions for Tomcat 8, for example:
-<https://tomcat.apache.org/tomcat-8.0-doc/ssl-howto.html>
+Here are instructions for Tomcat 10, for example:
+<https://tomcat.apache.org/tomcat-10.0-doc/ssl-howto.html>
 
 Copy the casdemo.war file into the webapps directory of Tomcat.
 
 ##### Build Tool (Optional)
 
-Download and install maven (version 3.8.4+) or Gradle (version 7.3.3+).
+Download and install maven (version 3.8.4+) or Gradle (version 8.12.1+).
 
 ##### Source Repository
 
