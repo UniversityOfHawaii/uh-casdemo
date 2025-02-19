@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  casdemo:
+    image: docprod.pvt.hawaii.edu/casdemo/casdemo:SNAPSHOT
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    networks:
+      - proxy
+    environment:
+      # app.url.base is just temporarily here until the reverse proxy is switched to the docker version.
+      SPRING_APPLICATION_JSON: >
+        {
+            "spring.profiles.active": "test",
+            "app.url.base": "https://www.test.hawaii.edu/its/cloud/casdemo"
+        }
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.casdemo-router.rule=PathPrefix(`/public/casdemo/`)"
+        - "traefik.http.routers.casdemo-router.middlewares=casdemo-middleware1"
+        - "traefik.http.middlewares.casdemo-middleware1.stripprefix.prefixes=/public"
+        - "traefik.http.routers.casdemo-router.service=casdemo-service"
+        - "traefik.http.services.casdemo-service.loadbalancer.server.port=8080"
+
+networks:
+  proxy:
+    external: true
