@@ -308,6 +308,13 @@ public class HomeControllerTest {
     }
 
     @Test
+    public void requestActuatorHealth() throws Exception {
+        mockMvc.perform(get("/actuator/health"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("{\"status\":\"UP\"}")));
+    }
+
+    @Test
     public void requestNonExistentUrl() throws Exception {
         mockMvc.perform(get("/not-a-url"))
                 .andExpect(status().is3xxRedirection());

@@ -163,7 +163,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/actuator/**").permitAll()
-                        .requestMatchers("/h2-ui/**").permitAll()
                         .requestMatchers("/api/**").authenticated()
                         .requestMatchers("/css/**").permitAll()
                         .requestMatchers("/fonts/**").permitAll()
@@ -177,6 +176,7 @@ public class SecurityConfig {
                         .requestMatchers("/home").permitAll()
                         .requestMatchers("/help/**").permitAll()
                         .requestMatchers("/404").permitAll()
+                        .requestMatchers("/h2-ui/**").hasRole("ADMIN")
                         .requestMatchers("/holiday", "/holidays").hasRole("ADMIN")
                         .requestMatchers("/holidaygrid").hasRole("ADMIN")
                         .requestMatchers("/holidaysgrid").hasRole("ADMIN")
