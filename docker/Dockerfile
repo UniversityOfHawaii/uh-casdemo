@@ -59,4 +59,5 @@ HEALTHCHECK \
      CMD wget \
            -O - \
            --quiet \
-           localhost:8080/casdemo
+           localhost:8080/casdemo/actuator/health \
+         | grep '"status":"UP"'

@@ -20,6 +20,10 @@ server:
 management:
     security:
         enabled: false
+    endpoints:
+        web:
+            exposure:
+                include: "health,info"
 
 app:
     mail:
