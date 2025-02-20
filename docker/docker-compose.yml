@@ -8,7 +8,6 @@ services:
     networks:
       - proxy
     environment:
-      # app.url.base is just temporarily here until the reverse proxy is switched to the docker version.
       SPRING_APPLICATION_JSON: >
         {
             "spring.profiles.active": "test"
