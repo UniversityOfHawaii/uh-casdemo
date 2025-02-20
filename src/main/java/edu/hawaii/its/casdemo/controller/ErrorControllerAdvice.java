@@ -20,7 +20,7 @@ public class ErrorControllerAdvice {
 
     private String handler(Throwable e, RedirectAttributes redirectAttributes) {
         String username = userContextService.getCurrentUsername();
-        logger.error("username: " + username + "; Error: " + e);
+        logger.error("username: " + username + "; Error: ", e);
         redirectAttributes.addFlashAttribute("feedback", new Feedback(e));
         return "redirect:/feedback";
     }

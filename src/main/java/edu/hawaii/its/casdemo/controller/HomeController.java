@@ -149,6 +149,11 @@ public class HomeController {
         return "feedback/result";
     }
 
+    @GetMapping("/actuator/")
+    public String actuator() {
+        return "redirect:/actuator/health";
+    }
+
     public EmailService getEmailService() {
         return emailService;
     }
