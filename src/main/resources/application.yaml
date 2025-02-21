@@ -56,7 +56,7 @@ cas:
     mainUrl: https://cas-test.its.hawaii.edu/cas
     login:
         url: "${cas.mainUrl}/login"
-    service: "${app.url.base}/login/cas"
+    service: "${app.url.base}/user"
     authenticateAllArtifacts: true
     sendRenew: true
     saml:
