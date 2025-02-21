@@ -102,6 +102,6 @@ cas:
 
 logging:
     level:
-        edu.hawaii.its.casdemo: INFO
+        edu.hawaii.its.casdemo: DEBUG
 
 ...
