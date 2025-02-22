@@ -188,7 +188,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exceptions -> exceptions.authenticationEntryPoint(casAuthenticationEntryPoint()))
-                .logout((logout) -> logout.logoutSuccessUrl("/"))
+                .logout((logout) -> logout.logoutSuccessUrl("/home"))
                 .addFilter(casAuthenticationFilter);
 
         return http.build();
