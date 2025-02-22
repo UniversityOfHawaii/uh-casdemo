@@ -1,4 +1,4 @@
-name: Test
+name: Tests
 
 on:
     push:
@@ -7,7 +7,7 @@ on:
         branches: [ main ]
 
 jobs:
-    test:
+    test-with-maven:
         strategy:
             fail-fast: true
             matrix:
@@ -23,4 +23,21 @@ jobs:
                     distribution: temurin
                     java-version: ${{ matrix.java }}
             -   name: Test code
-                run: mvn -B -q test -D'logging.level.edu.hawaii.its.casdemo=OFF' -D'logging.level.org.springframework=ERROR' -D'spring.main.banner-mode=off'
+                run: ./mvnw -B -q test -D'logging.level.edu.hawaii.its.casdemo=OFF' -D'logging.level.org.springframework=ERROR' -D'spring.main.banner-mode=off'
+    test-with-gradle:
+        strategy:
+            fail-fast: true
+            matrix:
+                os: [ ubuntu-latest, windows-latest ]
+                java: [ '23' ]
+        runs-on: ${{ matrix.os }}
+        name: Running Java ${{ matrix.java }} on ${{ matrix.os }}
+        steps:
+            -   uses: actions/checkout@v3
+            -   name: Set up JDK ${{ matrix.java }}
+                uses: actions/setup-java@v2
+                with:
+                    distribution: temurin
+                    java-version: ${{ matrix.java }}
+            -   name: Test code
+                run: ./gradlew test

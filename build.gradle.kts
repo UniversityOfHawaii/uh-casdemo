@@ -96,7 +96,11 @@ tasks.register("hints") {
         printHints()
     }
 }
-
+tasks.register("info") {
+    doLast {
+        printHints()
+    }
+}
 tasks.help {
     doLast {
         printHints()

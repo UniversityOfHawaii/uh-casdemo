@@ -84,6 +84,10 @@ The files for the project are kept here:
 
 <https://github.com/UniversityOfHawaii/uh-casdemo>
 
+##### Deployments
+
+See the wiki page for this repo.
+
 ##### Important Note
 
 The UH Number is restricted by University of Hawaii policy, so be sure not to expose it on any public page.
