@@ -16,6 +16,10 @@ services:
       labels:
         - "traefik.enable=true"
         - "traefik.http.routers.casdemo-router.rule=PathPrefix(`/casdemo`)"
+        - "traefik.http.routers.casdemo-router.middlewares=casdemo-middleware1"
+        - "traefik.http.middlewares.casdemo-middleware1.headers.customrequestheaders.X-Forwarded-Host=www.test.hawaii.edu"
+        - "traefik.http.middlewares.casdemo-middleware1.headers.customrequestheaders.X-Forwarded-Proto=https"
+        - "traefik.http.middlewares.casdemo-middleware1.headers.customrequestheaders.X-Forwarded-Port=443"
         - "traefik.http.routers.casdemo-router.service=casdemo-service"
         - "traefik.http.services.casdemo-service.loadbalancer.server.port=8080"
 
