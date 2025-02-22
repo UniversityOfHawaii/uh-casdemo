@@ -28,6 +28,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.util.Assert;
 
 import edu.hawaii.its.casdemo.access.CasUserDetailsService;
@@ -188,7 +189,8 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exceptions -> exceptions.authenticationEntryPoint(casAuthenticationEntryPoint()))
-                .logout((logout) -> logout.logoutSuccessUrl("/home"))
+                .logout((logout) -> logout.logoutSuccessUrl("/"))
+                .addFilterBefore(singleSignOutFilter(), LogoutFilter.class)
                 .addFilter(casAuthenticationFilter);
 
         return http.build();
