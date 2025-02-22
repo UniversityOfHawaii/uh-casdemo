@@ -89,6 +89,9 @@ logging:
 
 ---
 environment: test
+server:
+    forward-headers-strategy: framework
+
 spring:
     config:
         activate:
