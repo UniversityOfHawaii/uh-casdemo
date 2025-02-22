@@ -16,6 +16,7 @@ server:
         context-path: /casdemo
     session:
         timeout: 18000
+    use-forward-headers: true
 
 management:
     security:
@@ -93,6 +94,10 @@ spring:
     config:
         activate:
             on-profile: test
+    web:
+        resources:
+            static-locations: https://www.test.hawaii.edu/casdemo/
+
 app:
     url:
         base: https://www.test.hawaii.edu/casdemo
