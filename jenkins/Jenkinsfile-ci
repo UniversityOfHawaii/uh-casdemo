@@ -8,9 +8,7 @@ pipeline {
   stages {
     stage('Build Images') {
       steps {
-        withEnv(['DOCKER_BUILDKIT=1']) {
-          sh "docker compose -f docker/docker-compose.yml build"
-        }
+        sh "docker compose -f docker/docker-compose.yml build"
       }
     }
     stage('Publish Images') {
