@@ -166,7 +166,7 @@ public class HomeControllerTest {
         MvcResult mvcResult = mockMvc.perform(post("/logout").with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andReturn();
-        assertThat(mvcResult.getResponse().getRedirectedUrl(), equalTo(appUrlHome));
+        assertThat(mvcResult.getResponse().getRedirectedUrl(), equalTo(appUrlHome + "home"));
     }
 
     @Test
