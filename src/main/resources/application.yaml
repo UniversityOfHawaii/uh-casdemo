@@ -16,6 +16,7 @@ server:
         context-path: /casdemo
     session:
         timeout: 18000
+    forward-headers-strategy: framework
 
 management:
     security:
@@ -75,8 +76,6 @@ logging:
 
 ---
 environment: localhost
-server:
-    forward-headers-strategy: framework
 spring:
     config:
         activate:
