@@ -75,6 +75,8 @@ logging:
 
 ---
 environment: localhost
+server:
+    forward-headers-strategy: framework
 spring:
     config:
         activate:
