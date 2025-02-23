@@ -159,7 +159,6 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, CasAuthenticationFilter casAuthenticationFilter) throws Exception {
         http
                 .headers(AbstractHttpConfigurer::disable)
-                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/actuator/**").permitAll()

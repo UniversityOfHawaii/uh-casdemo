@@ -299,8 +299,6 @@
                                 <echo level="info">$ mvn -Dmaven.test.skip=true clean package</echo>
                                 <echo level="info">$ mvn clean spring-boot:run</echo>
                                 <echo level="info">$ mvn spring-boot:run -Dspring-boot.run.jvmArguments="..."</echo>
-                                <!--suppress MavenModelInspection -->
-                                <echo level="info">org.mockito:mockito-core:jar: ${org.mockito:mockito-core:jar}</echo>
                             </target>
                         </configuration>
                     </execution>
