@@ -8,6 +8,9 @@ on:
 
 jobs:
     test-with-maven:
+        permissions:
+            contents: read
+            pull-requests: write
         strategy:
             fail-fast: true
             matrix:
@@ -25,6 +28,9 @@ jobs:
             -   name: Test code
                 run: ./mvnw -B -q test -D'logging.level.edu.hawaii.its.casdemo=OFF' -D'logging.level.org.springframework=ERROR' -D'spring.main.banner-mode=off'
     test-with-gradle:
+        permissions:
+            contents: read
+            pull-requests: write
         strategy:
             fail-fast: true
             matrix:
