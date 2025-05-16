@@ -25,6 +25,11 @@ management:
         web:
             exposure:
                 include: "health,info"
+        info:
+            env:
+                enabled: true
+            version:
+                1.1
 
 app:
     mail:
