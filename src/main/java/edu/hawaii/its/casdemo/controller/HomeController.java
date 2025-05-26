@@ -1,5 +1,9 @@
 package edu.hawaii.its.casdemo.controller;
 
+import java.util.Collections;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -160,6 +166,13 @@ public class HomeController {
 
     public void setEmailService(EmailService emailService) {
         this.emailService = emailService;
+    }
+
+    @RequestMapping("/headers")
+    @ResponseBody
+    public Map<String, String> headers(HttpServletRequest request) {
+        return Collections.list(request.getHeaderNames()).stream()
+                .collect(Collectors.toMap(h -> h, request::getHeader));
     }
 
 }

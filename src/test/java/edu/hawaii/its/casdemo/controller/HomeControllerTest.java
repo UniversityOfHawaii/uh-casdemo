@@ -11,7 +11,9 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -319,6 +321,28 @@ public class HomeControllerTest {
         mockMvc.perform(get("/actuator/health"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("{\"status\":\"UP\"}")));
+    }
+
+    @Test
+    public void requestHeaders() throws Exception {
+        mockMvc.perform(get("/headers"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void requestHeadersAgain() throws Exception {
+        mockMvc.perform(get("/headers")
+                        .header("X-Test-Header", "testing"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.X-Test-Header").value("testing"));
+    }
+
+    @Test
+    public void requestHeadersYetAgain() throws Exception {
+        mockMvc.perform(get("/headers")
+                        .header("X-Test-Header", "testing"))
+                .andDo(print()) // <--- see what comes back
+                .andExpect(status().isOk());
     }
 
     @Test

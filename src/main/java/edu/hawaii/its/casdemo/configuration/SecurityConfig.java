@@ -165,6 +165,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/**").authenticated()
                         .requestMatchers("/css/**").permitAll()
                         .requestMatchers("/fonts/**").permitAll()
+                        .requestMatchers("/headers").permitAll()
                         .requestMatchers("/images/**").permitAll()
                         .requestMatchers("/javascript/**").permitAll()
                         .requestMatchers("/webjars/**").permitAll()
