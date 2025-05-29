@@ -171,8 +171,17 @@ public class HomeController {
     @RequestMapping("/headers")
     @ResponseBody
     public Map<String, String> headers(HttpServletRequest request) {
-        return Collections.list(request.getHeaderNames()).stream()
+        logger.info("User at headers.");
+        Map<String, String> headers = Collections.list(request.getHeaderNames()).stream()
                 .collect(Collectors.toMap(h -> h, request::getHeader));
+
+        // Add interpretation details
+        headers.put("RequestURL", request.getRequestURL().toString());
+        headers.put("Scheme", request.getScheme());
+        headers.put("ServerName", request.getServerName());
+        headers.put("ServerPort", String.valueOf(request.getServerPort()));
+
+        return headers;
     }
 
 }
