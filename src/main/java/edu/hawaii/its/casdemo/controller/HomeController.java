@@ -180,6 +180,11 @@ public class HomeController {
         headers.put("Scheme", request.getScheme());
         headers.put("ServerName", request.getServerName());
         headers.put("ServerPort", String.valueOf(request.getServerPort()));
+        headers.put("ServerScheme", String.valueOf(request.getScheme()));
+
+        headers.put("X-Forwarded-Proto", request.getHeader("X-Forwarded-Proto"));
+        headers.put("X-Forwarded-Port", request.getHeader("X-Forwarded-Port"));
+        headers.put("X-Forwarded-Host", request.getHeader("X-Forwarded-Host"));
 
         return headers;
     }
