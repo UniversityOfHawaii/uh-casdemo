@@ -1,8 +1,8 @@
 package edu.hawaii.its.casdemo.controller;
 
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -171,20 +171,30 @@ public class HomeController {
     @RequestMapping("/headers")
     @ResponseBody
     public Map<String, String> headers(HttpServletRequest request) {
-        logger.info("User at headers.");
-        Map<String, String> headers = Collections.list(request.getHeaderNames()).stream()
-                .collect(Collectors.toMap(h -> h, request::getHeader));
+        logger.info("User at /headers");
 
-        // Add interpretation details
+        Map<String, String> headers = new LinkedHashMap<>();
+
+        // Raw headers
+        Collections.list(request.getHeaderNames())
+                .forEach(name -> headers.put("Header: " + name, request.getHeader(name)));
+
+        // ServletRequest details
         headers.put("RequestURL", request.getRequestURL().toString());
-        headers.put("Scheme", request.getScheme());
-        headers.put("ServerName", request.getServerName());
+        headers.put("RequestURI", request.getRequestURI());
+        headers.put("Scheme", request.getScheme()); // http or https
+        headers.put("ServerName", request.getServerName()); // resolved host
         headers.put("ServerPort", String.valueOf(request.getServerPort()));
-        headers.put("ServerScheme", String.valueOf(request.getScheme()));
+        headers.put("RemoteAddr", request.getRemoteAddr());
+        headers.put("ContextPath", request.getContextPath());
 
+        // Forwarded headers (emphasized)
         headers.put("X-Forwarded-Proto", request.getHeader("X-Forwarded-Proto"));
-        headers.put("X-Forwarded-Port", request.getHeader("X-Forwarded-Port"));
         headers.put("X-Forwarded-Host", request.getHeader("X-Forwarded-Host"));
+        headers.put("X-Forwarded-Port", request.getHeader("X-Forwarded-Port"));
+        headers.put("X-Forwarded-For", request.getHeader("X-Forwarded-For"));
+        headers.put("Forwarded", request.getHeader("Forwarded"));
+        headers.put("X-Forwarded-Prefix", request.getHeader("X-Forwarded-Prefix"));
 
         return headers;
     }

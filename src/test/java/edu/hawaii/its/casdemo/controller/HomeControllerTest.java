@@ -334,7 +334,7 @@ public class HomeControllerTest {
         mockMvc.perform(get("/headers")
                         .header("X-Test-Header", "testing"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.X-Test-Header").value("testing"));
+                .andExpect(jsonPath("$.['Header: X-Test-Header']").value("testing"));
     }
 
     @Test
