@@ -1,0 +1,25 @@
+#!/usr/bin/env groovy
+
+pipeline {
+    agent any
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
+    stages {
+        stage('Build Images') {
+            steps {
+                sh "docker compose -f docker/docker-compose.TEST.yml build"
+            }
+        }
+        stage('Publish Images') {
+            steps {
+                sh "docker compose -f docker/docker-compose.TEST.yml push"
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh "docker stack deploy --with-registry-auth -c docker/docker-compose.TEST.yml casdemo"
+            }
+        }
+    }
+}
