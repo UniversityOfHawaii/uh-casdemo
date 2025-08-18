@@ -19,17 +19,18 @@ server:
     forward-headers-strategy: framework
 
 management:
-    security:
-        enabled: false
+    info:
+        env:
+            enabled: true
+        git:
+            mode: full
     endpoints:
         web:
             exposure:
                 include: "health,info"
-        info:
-            env:
-                enabled: true
-            version:
-                1.1
+info:
+    app:
+        name: casdemo
 
 app:
     mail:

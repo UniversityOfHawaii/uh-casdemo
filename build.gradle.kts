@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 plugins {
     id("org.springframework.boot") version "3.4.3"
     java
@@ -46,7 +48,7 @@ dependencies {
 }
 
 group = "edu.hawaii.its"
-version = "1.1"
+version = "1.1.1"
 description = "casdemo"
 java.sourceCompatibility = JavaVersion.VERSION_23
 
@@ -54,6 +56,10 @@ publishing {
     publications.create<MavenPublication>("maven") {
         from(components["java"])
     }
+}
+
+springBoot {
+    buildInfo()
 }
 
 tasks.withType<JavaCompile>() {
@@ -64,11 +70,19 @@ tasks.jar {
     enabled = true
     // Remove 'plain' postfix from file name.
     archiveClassifier.set("")
+    archiveFileName.set("${project.description}.jar")
 }
 
 tasks.war {
     enabled = true
     // Remove 'plain' postfix from file name.
+    archiveClassifier.set("")
+    archiveFileName.set("${project.description}.jar")
+}
+
+tasks.named<BootJar>("bootJar") {
+    archiveBaseName.set(project.description ?: project.name)
+    archiveVersion.set("")
     archiveClassifier.set("")
 }
 

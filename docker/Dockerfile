@@ -37,11 +37,11 @@ RUN  ./gradlew --no-daemon bootJar
 # Match the artifact with the release container owner so the `COPY --from` will work.
 # See https://github.com/UniversityOfHawaii/docker-at-uh/issues/30
 USER root
-RUN chown root:root /home/ubuntu/workspace/build/libs/casdemo-1.1.jar
+RUN chown root:root /home/ubuntu/workspace/build/libs/casdemo.jar
 
 FROM base-env as deploy
-COPY --from=package --chown=ubuntu:ubuntu /home/ubuntu/workspace/build/libs/casdemo-1.1.jar /home/ubuntu/workspace/casdemo-1.1.jar
-CMD java -jar /home/ubuntu/workspace/casdemo-1.1.jar
+COPY --from=package --chown=ubuntu:ubuntu /home/ubuntu/workspace/build/libs/casdemo.jar /home/ubuntu/workspace/casdemo.jar
+CMD java -jar /home/ubuntu/workspace/casdemo.jar
 HEALTHCHECK \
      --interval=10s \
      --timeout=10s \
